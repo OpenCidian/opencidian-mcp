@@ -9,7 +9,7 @@ export function renderLlmsTxt(config: McpConfig, publicUrl: string): string {
   const tools = config.tools.map((t) => `- \`${t.name}\`: ${firstSentence(t.description)}`).join("\n");
   return `# OpenCidian by Perxel
 
-> An open Chinese-Vietnamese dictionary, served to AI assistants over MCP. Hán Việt, pinyin and Vietnamese meaning for every word, and every field says which source it came from. Read-only, free, no sign-in.
+> An open Chinese-Vietnamese dictionary, served to AI assistants over MCP. Hán Việt, pinyin and Vietnamese meaning for every word, and every field says which source it came from. Free, no sign-in; read-only except suggest_correction, which opens a public issue for review.
 
 OpenCidian joins CC-CEDICT (Chinese-English), CVDICT (Chinese-Vietnamese), Thiều Chửu's Hán Việt tự điển, Unihan, Make Me a Hanzi and the HSK word lists into one dataset of about 125,000 words and 14,500 characters, each source pinned to a version. Questions can be asked in Vietnamese or English.
 
