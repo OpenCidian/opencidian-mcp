@@ -25,8 +25,8 @@
   //   DASH_PROXY_KEY: this MCP's metrics-proxy key (its SHA-256 goes in the proxy's PROXY_KEYS)
 
   "kv_namespaces": [
-    { "binding": "OAUTH_KV", "id": "<run: wrangler kv namespace create OAUTH_KV>" },
-    { "binding": "CONTENT_KV", "id": "<run: wrangler kv namespace create CONTENT_KV>" }
+    { "binding": "OAUTH_KV", "id": "3db7e31f03f74747b34a47abde57e1db" },
+    { "binding": "CONTENT_KV", "id": "6b985d9d2759455289e3922cdb50180b" }
   ],
   "analytics_engine_datasets": [{ "binding": "METRICS", "dataset": "mcp_opencidian" }],
   "services": [
