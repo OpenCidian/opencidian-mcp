@@ -7,6 +7,7 @@ import type { McpConfig } from "../../kit/core/config.js";
 export function renderLlmsTxt(config: McpConfig, publicUrl: string): string {
   const mcpUrl = `${publicUrl}/mcp`;
   const tools = config.tools.map((t) => `- \`${t.name}\`: ${firstSentence(t.description)}`).join("\n");
+  const prompts = (config.prompts ?? []).map((p) => `- \`${p.name}\`: ${firstSentence(p.description)}`).join("\n");
   return `# OpenCidian by Perxel
 
 > An open Chinese-Vietnamese dictionary, served to AI assistants over MCP. Hán Việt, pinyin and Vietnamese meaning for every word, and every field says which source it came from. Free, no sign-in; read-only except suggest_correction, which opens a public issue for review.
@@ -37,7 +38,13 @@ MCP server (Streamable HTTP, no auth): ${mcpUrl}
 ## Tools
 
 ${tools}
+${prompts ? `
+## Prompts
 
+Templates you pick in the client (a slash command, or the "+" menu in Claude) instead of typing the request:
+
+${prompts}
+` : ""}
 ## Trust
 
 - Every field carries \`src\`: the source it came from, or a correction.

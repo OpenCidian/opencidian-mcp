@@ -1,4 +1,5 @@
 import { defineConfig } from "./kit/core/config.js";
+import { wordAnalysisPrompt } from "./src/prompts/word-analysis.js";
 import { aboutTool } from "./src/tools/about.js";
 import { annotateTextTool } from "./src/tools/annotate-text.js";
 import { getCharacterTool } from "./src/tools/get-character.js";
@@ -10,12 +11,13 @@ import { wordsWithTool } from "./src/tools/words-with.js";
 export default defineConfig({
   slug: "opencidian",
   name: "OpenCidian MCP",
-  version: "0.2.0",
+  version: "0.3.0",
   description:
     "OpenCidian by Perxel: an open Chinese-Vietnamese dictionary. Look up words by hanzi, pinyin or Vietnamese; Hán Việt, pinyin and Vietnamese meaning per word; characters with their parts; annotate a Chinese text word by word. Every field says which source it came from. No sign-in; one tool, suggest_correction, opens a public GitHub issue and never changes the data. Data CC BY-SA 4.0 (credit \"OpenCidian by Perxel\"); about and how to connect: /llms.txt.",
   instructions:
     "OpenCidian: a Chinese-Vietnamese dictionary. Use it for a word's pinyin, Hán Việt or Vietnamese meaning instead of guessing. lookup takes hanzi, pinyin or Vietnamese; search_meaning finds Chinese words for a Vietnamese or English meaning; get_character for one character's readings and parts; words_with for words that contain a character; annotate_text for a whole sentence. Every field has `src`: say which source a value comes from when it matters. `vi: null` means the dictionary has no Vietnamese for that word, and no entries means the word isn't in it: say so rather than make one up. Hán Việt is given per character; a word's reading joins them and can be irregular. If a value is wrong and the user wants it fixed, suggest_correction sends it for review (with evidence, never a guess).",
   scopes: {},
   tools: [lookupTool, getCharacterTool, wordsWithTool, searchMeaningTool, annotateTextTool, suggestCorrectionTool, aboutTool],
+  prompts: [wordAnalysisPrompt],
   docs: { contact: "https://github.com/OpenCidian" },
 });
