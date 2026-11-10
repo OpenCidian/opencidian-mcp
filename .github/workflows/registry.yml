@@ -1,0 +1,19 @@
+name: Publish to MCP Registry
+
+# Publishes server.json as io.github.OpenCidian/opencidian. Run by hand after a version bump
+# (bump "version" in server.json too). GitHub OIDC proves the repo belongs to the OpenCidian org; no token.
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - run: ./mcp-publisher login github-oidc
+      - run: ./mcp-publisher publish

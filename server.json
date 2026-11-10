@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.OpenCidian/opencidian",
+  "title": "OpenCidian: open Chinese ↔ Vietnamese dictionary (Hán Việt, pinyin, character breakdown)",
+  "description": "Open Chinese-Vietnamese dictionary by Perxel: Hán Việt, pinyin, meanings, characters. Cited.",
+  "repository": {
+    "url": "https://github.com/OpenCidian/opencidian-mcp",
+    "source": "github",
+    "id": "1452386685"
+  },
+  "websiteUrl": "https://opencidian-mcp.perxel.com/llms.txt",
+  "version": "0.2.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://opencidian-mcp.perxel.com/mcp"
+    }
+  ]
+}
