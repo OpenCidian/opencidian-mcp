@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/configuration-schema.json",
+  // The MCP Worker: /mcp, /, /health, /llms.txt and the dashboard at /dash. Built from perxel-mcp-kit.
+  "name": "opencidian-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+
+  // The only public entry point is the custom domain (DNS record + certificate created on deploy).
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "opencidian-mcp.perxel.com", "custom_domain": true }],
+
+  "vars": {
+    // The service binding's URL: the host is never resolved, the request goes Worker-to-Worker.
+    "API_URL": "https://opencidian-api.internal",
+    "MCP_PUBLIC_URL": "https://opencidian-mcp.perxel.com",
+    "DASH_PATH": "/dash",
+    // Public dashboard, like OpenRace: the metrics hold no tool arguments.
+    "DASH_PUBLIC": "true"
+  },
+  // Secrets (`wrangler secret put -c wrangler.mcp.jsonc <NAME>`):
+  //   MCP_SECRET: equals opencidian-api's MCP_SECRET (the API answers 404 without it)
+  //   IP_HASH_SALT, COOKIE_ENCRYPTION_KEY: random (`openssl rand -hex 32`)
+  //   DASH_PROXY_KEY: this MCP's metrics-proxy key (its SHA-256 goes in the proxy's PROXY_KEYS)
+
+  "kv_namespaces": [
+    { "binding": "OAUTH_KV", "id": "<run: wrangler kv namespace create OAUTH_KV>" },
+    { "binding": "CONTENT_KV", "id": "<run: wrangler kv namespace create CONTENT_KV>" }
+  ],
+  "analytics_engine_datasets": [{ "binding": "METRICS", "dataset": "mcp_opencidian" }],
+  "services": [
+    { "binding": "METRICS_PROXY", "service": "mcp-metrics-proxy" },
+    { "binding": "API", "service": "opencidian-api" }
+  ],
+  // namespace_ids are unique in the account (1001-5001 are taken by other Workers).
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "6001", "simple": { "limit": 60, "period": 60 } },
+    { "name": "RATE_LIMITER_ANTHROPIC", "namespace_id": "6002", "simple": { "limit": 600, "period": 60 } }
+  ]
+}

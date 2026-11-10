@@ -1,0 +1,15 @@
+MCP_PUBLIC_URL="http://localhost:8788"
+IP_HASH_SALT="dev-salt-change-me"
+COOKIE_ENCRYPTION_KEY="dev-cookie-key-change-me-32-chars-min"
+# Dashboard (http://localhost:8788/dash/): leave empty to see the empty dashboard.
+DASH_PROXY_KEY=""
+
+# Required: opencidian-api is internal and answers 404 to every read without it.
+# Must equal the MCP_SECRET of the opencidian-api you reach: your local `wrangler dev`
+# in ../opencidian-api (any value, the same in its .dev.vars), or the deployed one
+# (`"remote": true` on the API service binding in wrangler.mcp.jsonc, for a local test only).
+# MCP_SECRET=
+
+# Cloudflare account setup (`pnpm setup:cloudflare`), read by the setup script only.
+CF_EMAIL=""
+CF_GLOBAL_API_KEY=""
