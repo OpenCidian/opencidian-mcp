@@ -1,2 +1,2 @@
 // Generated from kit/VERSION by `pnpm kit:update` (in this repo: kept in sync by version.test.ts).
-export const KIT_VERSION = "main@e8fd369";
+export const KIT_VERSION = "main@6944a79";
